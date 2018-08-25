@@ -34,6 +34,9 @@
 #ifndef ROSSERIAL_SERVER_ASYNC_READ_BUFFER_H
 #define ROSSERIAL_SERVER_ASYNC_READ_BUFFER_H
 
+#ifdef WIN32
+typedef size_t ssize_t;
+#endif 
 #include <boost/bind.hpp>
 #include <boost/asio.hpp>
 #include <boost/function.hpp>

@@ -31,11 +31,15 @@
  *
  */
 
+#include <ros/ros.h>
+
+#ifdef WIN32
+#include <winsock2.h>
+#endif
+
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <boost/thread.hpp>
-
-#include <ros/ros.h>
 
 #include "rosserial_server/serial_session.h"
 
