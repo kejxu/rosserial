@@ -40,6 +40,10 @@
 #include <boost/asio.hpp>
 #include <boost/function.hpp>
 
+#ifdef WIN32
+#undef ERROR
+#endif
+
 #include <ros/callback_queue.h>
 #include <ros/ros.h>
 #include <rosserial_msgs/TopicInfo.h>
