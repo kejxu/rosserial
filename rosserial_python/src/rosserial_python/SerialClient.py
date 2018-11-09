@@ -462,7 +462,7 @@ class SerialClient(object):
                 else:
                     rospy.logerr("Unable to sync with device; possible link problem or link software version mismatch such as hydro rosserial_python with groovy Arduino")
                 self.lastsync_lost = rospy.Time.now()
-                self.sendDiagnostics(diagnostic_msgs.msg.DiagnosticStatus.DIAG_ERROR, ERROR_NO_SYNC)
+                self.sendDiagnostics(diagnostic_msgs.msg.DiagnosticStatus.ERROR, ERROR_NO_SYNC)
                 self.requestTopics()
                 self.lastsync = rospy.Time.now()
 
@@ -486,7 +486,7 @@ class SerialClient(object):
                 read_step = 'protocol'
                 flag[1] = self.tryRead(1)
                 if flag[1] != self.protocol_ver:
-                    self.sendDiagnostics(diagnostic_msgs.msg.DiagnosticStatus.DIAG_ERROR, ERROR_MISMATCHED_PROTOCOL)
+                    self.sendDiagnostics(diagnostic_msgs.msg.DiagnosticStatus.ERROR, ERROR_MISMATCHED_PROTOCOL)
                     rospy.logerr("Mismatched protocol version in packet (%s): lost sync or rosserial_python is from different ros release than the rosserial client" % repr(flag[1]))
                     protocol_ver_msgs = {'\xff': 'Rev 0 (rosserial 0.4 and earlier)', '\xfe': 'Rev 1 (rosserial 0.5+)', '\xfd': 'Some future rosserial version'}
                     if flag[1] in protocol_ver_msgs:
@@ -522,7 +522,7 @@ class SerialClient(object):
                 try:
                     msg = self.tryRead(msg_length)
                 except IOError:
-                    self.sendDiagnostics(diagnostic_msgs.msg.DiagnosticStatus.DIAG_ERROR, ERROR_PACKET_FAILED)
+                    self.sendDiagnostics(diagnostic_msgs.msg.DiagnosticStatus.ERROR, ERROR_PACKET_FAILED)
                     rospy.loginfo("Packet Failed :  Failed to read msg data")
                     rospy.loginfo("expected msg length is %d", msg_length)
                     raise
