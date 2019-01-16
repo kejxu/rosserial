@@ -34,6 +34,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 import rospy
+import platform
 from rosserial_arduino import SerialClient
 from serial import SerialException
 from time import sleep
@@ -45,8 +46,8 @@ if __name__=="__main__":
     rospy.init_node("serial_node")
     rospy.loginfo("ROS Serial Python Node")
 
-    port_name = rospy.get_param('~port','/dev/ttyUSB0')
-    baud = int(rospy.get_param('~baud','57600'))
+    port_name = rospy.get_param('~port', 'COM1' if platform.system() == 'Windows' else '/dev/ttyUSB0')
+    baud = int(rospy.get_param('~baud', '57600'))
 
     # Number of seconds of sync failure after which Arduino is auto-reset.
     # 0 = no timeout, auto-reset disabled
